@@ -16,7 +16,7 @@ function random(min, max) {
     return num
 }
 
-function Ball(x, y, velX, velY, color, size) {
+function Shape(x, y, velX, velY) {
     // --- 坐标
     this.x = x
     this.y = y
@@ -24,6 +24,75 @@ function Ball(x, y, velX, velY, color, size) {
     this.velX = velX
     this.velY = velY
 
+    this.exists = true
+}
+
+function EvilCircle(x, y) {
+    var velX = 10
+    var velY = 10
+    var color = 'white'
+    var size = 10
+    Shape.call(this, x, y, velX, velY, color, size)
+    this.color = color
+    this.size = size
+}
+EvilCircle.prototype.draw = function () {
+    ctx.beginPath()
+    ctx.lineWidth = 3
+    ctx.strokeStyle = this.color
+    ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI)
+    ctx.stroke()
+}
+EvilCircle.prototype.checkBounds = function () {
+    if (this.x + this.size >= width) {
+        this.x -= this.size
+    }
+    if (this.x - this.size <= 0) {
+        this.x += this.size
+    }
+
+    if (this.y + this.size >= height) {
+        this.y -= this.size
+    }
+    if (this.y - this.size <= 0) {
+        this.y += this.size
+    }
+}
+EvilCircle.prototype.setControls = function () {
+    var _this = this;
+    window.onkeydown = function (e) {
+        console.log(e.keyCode)
+        
+        if (e.keyCode === 37 || e.keyCode === 65) {
+            // go left
+            _this.x -= _this.velX;
+        } else if (e.keyCode === 39 || e.keyCode === 68) {
+            // go right
+            _this.x += _this.velX;
+        } else if (e.keyCode === 38 || e.keyCode === 87) {
+            // go up
+            _this.y -= _this.velY;
+        } else if (e.keyCode === 40 || e.keyCode === 83) {
+            // go down
+            _this.y += _this.velY;
+        }
+    }
+}
+EvilCircle.prototype.collisionDetect = function () {
+    for (var j = 0; j < balls.length; j++) {
+        if (balls[j].exists) {
+            var dx = this.x - balls[j].x
+            var dy = this.y - balls[j].y
+            var distance = Math.sqrt(dx * dx + dy * dy)
+            if (distance < this.size + balls[j].size) {
+                balls[j].exists = false
+            }
+        }
+    }
+}
+
+function Ball(x, y, velX, velY, color, size) {
+    Shape.call(this, x, y, velX, velY)
     this.color = color
     this.size = size
 }
@@ -59,6 +128,8 @@ Ball.prototype.collisionDetect = function () {
 
 
 var balls = []
+var evilCircle = new EvilCircle(50, 50)
+evilCircle.setControls()
 function loop() {
     ctx.fillStyle = 'rgba(0, 0, 0, .25)'
     ctx.fillRect(0, 0, width, height)
@@ -76,10 +147,16 @@ function loop() {
         balls.push(ball)
     }
 
-    balls.forEach(function (ball) {
-        ball.draw()
-        ball.update()
-        ball.collisionDetect()
+    evilCircle.draw()
+    evilCircle.checkBounds()
+    evilCircle.collisionDetect()
+
+    balls.forEach(function (ball, i) {
+        if (ball.exists) {
+            ball.draw()
+            ball.update()
+            ball.collisionDetect()
+        }
     })
 
     requestAnimationFrame(loop)
