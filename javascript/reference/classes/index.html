@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Classes</title>
+    <link rel="stylesheet" href="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/style.css">
+    <script src="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/main.js"></script>
+</head>
+
+<body>
+    <script>
+        class Rectangle {
+            constructor(height, width) {
+                this.height = height
+                this.width = width
+            }
+            get area() {
+                return this.calcArea()
+            }
+            calcArea() {
+                return this.height * this.width
+            }
+        }
+        var rect = new Rectangle(100, 100)
+
+        // Rectangle {height: 100, width: 100} 10000
+        console.log(rect, rect.area)
+        console.log('\n\n')
+    </script>
+    <script>
+        // static 关键字用来定义一个类的一个静态方法。
+        // 调用静态方法不需要实例化该类，但不能通过一个
+        // 类实例调用静态方法。静态方法通常用于为一个应
+        // 用程序创建工具函数。
+        class Point {
+            constructor(x, y) {
+                this.x = x
+                this.y = y
+            }
+            static distance(a, b) {
+                const dx = a.x - b.x
+                const dy = a.y - b.y
+                return Math.hypot(dx, dy)
+            }
+        }
+        const p1 = new Point(5, 5)
+        const p2 = new Point(10, 10)
+
+        // Point {x: 5, y: 5} undefined
+        console.log(p1, p1.distance)
+        
+        // 7.0710678118654755
+        console.log(Point.distance(p1, p2));
+        console.log('\n\n')
+    </script>
+</body>
+
+</html>
