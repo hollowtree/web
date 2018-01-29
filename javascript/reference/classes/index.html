@@ -51,9 +51,47 @@
 
         // Point {x: 5, y: 5} undefined
         console.log(p1, p1.distance)
-        
+
         // 7.0710678118654755
         console.log(Point.distance(p1, p2));
+        console.log('\n\n')
+    </script>
+    <script>
+        class Legend {
+            constructor(name) {
+                this.name = name
+            }
+            speak() {
+                console.log(this.name + ' speak:')
+            }
+        }
+        class Annie extends Legend {
+            constructor(name) {
+                super('Annie')
+                this.race = 'Human'
+                this.alias = 'The Dark Child'
+            }
+            speak() {
+                super.speak()
+                console.log('Let\'s count to five!')
+            }
+        }
+        class Teemo extends Legend {
+            constructor(name) {
+                super('Teemo')
+                this.race = 'Yordel'
+                this.alias = 'The Swift Scout'
+            }
+            speak() {
+                super.speak()
+                console.log('one, two, three, four')
+            }
+        }
+        var annie = new Annie()
+        var teemo = new Teemo()
+        console.log(annie, teemo)
+        annie.speak()
+        teemo.speak()
         console.log('\n\n')
     </script>
 </body>
