@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>functions</title>
+    <link rel="stylesheet" href="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/style.css">
+    <script src="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/main.js"></script>
+</head>
+
+<body>
+    <script>
+        var foo = {
+            *bar() {
+                var index = 0
+                while (true) {
+                    yield index++
+                }
+            }
+        }
+        var it = foo.bar()
+        console.log(it.next().value)
+        console.log(it.next().value)
+        console.log(it.next().value)
+        console.log(it.next().value)
+        console.log('\n\n')
+    </script>
+
+    <script>
+        [0, 1, 2, 3, 4].reduce(function (a, b) { console.log(a, b) })
+        console.log('\n\n')
+    </script>
+
+    <script>
+        var rect = {
+            width: 100,
+            height: 80,
+            get area() {
+                return this.width * this.height
+            }
+        }
+        console.log(rect.area)
+        console.log('\n\n')
+    </script>
+
+    <script>
+        var legends = {
+            set add(name) {
+                this.list.push(name)
+            },
+            list: []
+        }
+        legends.add = 'Teemo'
+        legends.add = 'Annie'
+        console.log(legends.list)
+        console.log('\n\n')
+    </script>
+</body>
+
+</html>
