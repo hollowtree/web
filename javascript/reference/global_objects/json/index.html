@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>let</title>
+    <link rel="stylesheet" href="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/style.css">
+    <script src="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/main.js"></script>
+
+</head>
+
+<body>
+    <script>
+        JSON.parse(JSON.stringify({
+            name: 'Teemo',
+            age: 17,
+            foo: {
+                race: 'Yordel'
+            }
+        }), function (key, val) {
+            if (key === 'age') {
+                val = 19
+            }
+            console.log(key, val)
+            // --- If the reviver function returns undefined (or returns no value, 
+            // --- for example, if execution falls off the end of the function), 
+            // --- the property is deleted from the object. Otherwise, the property 
+            // --- is redefined to be the return value.
+            return val
+        })
+        console.log('\n\n')
+
+    </script>
+    <script>
+        var foo = {
+            name: 'Teemo',
+            age: 17,
+            foo: {
+                race: 'Yordel'
+            },
+            temp: null,
+            temp1: undefined
+        }
+        console.log(JSON.stringify(foo))
+        console.log(JSON.stringify(foo, (key, val) => key === 'age' ? 19 : val))
+        console.log(JSON.stringify(foo, ['name', 'age']))
+        console.log(JSON.stringify(foo, null, 2))
+        console.log(JSON.stringify(foo, null, '\t'))
+        console.log('\n\n')
+    </script>
+    <script>
+        // --- Non-enumerable properties:
+        console.log(JSON.stringify(
+            Object.create(
+                null,
+                {
+                    x: { value: 'x', enumerable: false },
+                    y: { value: 'y', enumerable: true }
+                }
+            )
+        ))
+        console.log('\n\n')
+    </script>
+    <script>
+        // --- You cannot use the replacer function to remove 
+        // --- values from an array. If you return undefined 
+        // --- or a function then null is used instead.
+        console.log(JSON.stringify([1, 2, 3, 4, 5], (key, val) => val === 2 ? undefined : val))
+        console.log('\n\n')
+    </script>
+    <script>
+        var obj = {
+            foo: 'foo',
+            toJSON: function () {
+                return 'bar';
+            }
+        };
+        JSON.stringify(obj);      // '"bar"'
+        JSON.stringify({ x: obj }); // '{"x":"bar"}'
+    </script>
+</body>
+
+</html>
