@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>try...catch</title>
+    <link rel="stylesheet" href="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/style.css">
+    <script src="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/main.js"></script>
+</head>
+
+<body>
+    <script>
+        // --- Unconditional catch clause
+        try {
+            throw 'This is a error.'
+        } catch (e) {
+            // --- catch 需要形参（异常标识符 e，不可缺少）
+            // --- 且当 try 中 throw 一个错误后，必须要有 catch，
+            // --- 不然代码会由于错误中断执行，比如说缺少 catch 时
+            // --- 此段代码就不会打印 `statement 2 end.`
+            console.warn(e)
+        } finally {
+            // --- the finally clause executes regardless of whether an exception is thrown.
+            console.log('statement 1 end.')
+        }
+        try {
+        } catch (e) {
+            console.log(e)
+        } finally {
+            console.log('statement 2 end.')
+        }
+    </script>
+    <script>
+    </script>
+</body>
+
+</html>
