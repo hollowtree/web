@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>switch</title>
+    <link rel="stylesheet" href="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/style.css">
+    <script src="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/main.js"></script>
+</head>
+
+<body>
+    <script>
+        var val = 1
+        switch (val) {
+            case 1:
+                console.log(1)
+                break;
+            default:
+                console.log(val)
+                break;
+            case 2:
+                console.log(2)
+                break;
+        }
+    </script>
+    <script>
+        var i = 3;
+        switch (i) {
+            case ((i >= 0 && i <= 5) ? i : -1):
+                console.log('0 ~ 5');
+                break;
+            case 6: console.log('6');
+        }
+    </script>
+</body>
+
+</html>
