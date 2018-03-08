@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>let</title>
+    <link rel="stylesheet" href="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/style.css">
+    <script src="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/main.js"></script>
+
+</head>
+
+<body>
+    <script>
+        var i, j;
+
+        loop1:
+        for (i = 0; i < 3; i++) {      //The first for statement is labeled "loop1"
+            loop2:
+            for (j = 0; j < 3; j++) {   //The second for statement is labeled "loop2"
+                if (i === 1 && j === 1) {
+                    continue loop1;
+                }
+                console.log('i = ' + i + ', j = ' + j);
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
