@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>let</title>
+    <link rel="stylesheet" href="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/style.css">
+    <script src="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/main.js"></script>
+
+</head>
+
+<body>
+    <script>
+        function* generator(i) {
+            yield i
+            yield i + 10
+            yield i + 23
+        }
+        var foo = generator(5)
+        console.log(foo.next())
+        console.log(foo.next())
+        console.log(foo.next())
+        console.log(foo.next())
+        console.log('\n\n')
+    </script>
+    <script>
+        // --- try run `console.log(b.next())` in console panel
+
+        function* a() {
+            var i = 0
+            var condition = true
+            while (condition) {
+                yield i += 10
+            }
+        }
+        var b = a()
+        console.log(b.next())
+        console.log(b.next())
+        console.log(b.next())
+        console.log('\n\n')
+    </script>
+    <script>
+        function* cc(i) {
+            yield i + 1
+            yield i + 2
+            yield i + 3
+        }
+        function* dd(i) {
+            yield i
+            yield* cc(i)
+            yield i + 10
+        }
+        var gen = dd(10)
+        console.log(gen.next())
+        console.log(gen.next())
+        console.log(gen.next())
+        console.log(gen.next())
+        console.log(gen.next())
+        console.log('\n\n')
+    </script>
+    <script>
+        function* passParam() {
+            var a = 1, b = 2
+            console.log(a + b)
+        }
+        var gen = passParam()
+        console.log(gen.next())
+        console.log('\n\n')
+    </script>
+    <script>
+        function* passParam() {
+            var a = 1, b = 2
+            console.log(a + b)
+            console.log(yield)
+
+        }
+        var gen = passParam()
+        console.log(gen.next(23))
+        console.log(gen.next(23))
+        console.log('\n\n')
+    </script>
+    <script>
+        function* Y() {
+            yield 'X'
+            return 'Y'
+            yield 'Z'
+        }
+        var g = Y()
+        console.log(g.next())
+        console.log(g.next())
+        console.log(g.next())
+        console.log('\n\n')
+    </script>
+
+    <script>
+        function* yui() {
+            var a = yield 1
+            console.log(a)
+
+        }
+        var gen = yui()
+        console.log(gen.next())
+        console.log(gen.next(90))
+        console.log('\n\n')
+    </script>
+    <script>
+        function* hui() {
+            var condition = true
+            while (condition) {
+                condition = yield 10
+            }
+        }
+        var gen = hui()
+        console.log(gen.next())
+        console.log(gen.next())
+        console.log(gen.next(false))
+        console.log('\n\n')
+    </script>
+    <script>
+        function* hui() {
+            var condition = true
+            while (condition) {
+                condition = yield 10
+            }
+        }
+        var gen = hui()
+        console.log(gen.next(true))
+        console.log(gen.next(true))
+        console.log(gen.next(false))
+        console.log('\n\n')
+    </script>
+</body>
+
+</html>
