@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>let</title>
+    <link rel="stylesheet" href="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/style.css">
+    <script src="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/main.js"></script>
+
+</head>
+
+<body>
+    <script>
+        let mySet = new Set([1, 2, 2, 4, 5, 5, 7])
+        for (const val of mySet) {
+            console.log(val)
+        }
+        console.log('\n\n')
+    </script>
+    <script>
+        function* foo() {
+            yield 1
+            yield 2
+            yield 3
+        }
+        for (const val of foo()) {
+            console.log(val)
+        }
+        console.log('\n\n')
+    </script>
+    <script>
+        function* fibonacci() { // a generator function
+            let [prev, curr] = [0, 1];
+            while (true) {
+                [prev, curr] = [curr, prev + curr];
+                yield curr;
+            }
+        }
+
+        for (let n of fibonacci()) {
+            console.log(n);
+            // truncate the sequence at 1000
+            if (n >= 100) {
+                break;
+            }
+        }
+        console.log('\n\n')
+    </script>
+    <script>
+        // --- 对象不可被 for of
+        var a = {
+        }
+        for (const val of a) {
+            console.log(val)
+        }
+    </script>
+    <script>
+    </script>
+</body>
+
+</html>
