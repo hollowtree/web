@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>let</title>
+    <link rel="stylesheet" href="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/style.css">
+    <script src="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/main.js"></script>
+
+</head>
+
+<body>
+    <script>
+        // --- String, Array, TypedArray, Map and Set are all 
+        // --- built-in iterables, because their prototype 
+        // --- objects all have a Symbol.iterator method.
+
+        var con = function () {
+            this.name = 'Teemo',
+                this.age = 17
+        }
+        con.prototype.race = 'Yordel'
+        var legend = new con()
+        for (const key in legend) {
+            console.log(key)
+        }
+    </script>
+
+</body>
+
+</html>
