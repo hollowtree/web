@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>let</title>
+    <link rel="stylesheet" href="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/style.css">
+    <script src="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/main.js"></script>
+
+</head>
+
+<body>
+    <script>
+        function foo() {
+            return new Promise(res => {
+                setTimeout(() => {
+                    res('end')
+                }, 2000);
+            })
+        }
+        async function bar() {
+            console.log('start')
+            var result = await foo()
+            console.log(result)
+        }
+        bar()
+    </script>
+    <script>
+        function sleep(time) {
+            return new Promise(res => {
+                setTimeout(() => {
+                    res()
+                }, time || 1000);
+            })
+        }
+        async function aim() {
+            console.log(1)
+            await sleep(2000)
+            console.log(2)
+
+        }
+        aim()
+    </script>
+
+</body>
+
+</html>
