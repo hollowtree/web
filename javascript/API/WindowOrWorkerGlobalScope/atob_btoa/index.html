@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>let</title>
+    <link rel="stylesheet" href="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/style.css">
+    <script src="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/main.js"></script>
+
+</head>
+
+<body>
+    <script>
+        var encodedData = btoa('Hello World!')
+        var decodedData = atob(encodedData)
+        console.log(encodedData, decodedData)
+    </script>
+    <script>
+        // ucs-2 string to base64 encoded ascii
+        function utoa(str) {
+            return window.btoa(unescape(encodeURIComponent(str)));
+        }
+        // base64 encoded ascii to ucs-2 string
+        function atou(str) {
+            return decodeURIComponent(escape(window.atob(str)));
+        }
+        // Usage:
+        console.log(utoa('✓ à la mode'))
+        console.log(atou('4pyTIMOgIGxhIG1vZGU='))
+        console.log(utoa('I \u2661 Unicode!'))
+        console.log(atou('SSDimaEgVW5pY29kZSE='))
+    </script>
+</body>
+
+</html>
