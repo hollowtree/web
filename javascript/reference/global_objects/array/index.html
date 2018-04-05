@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>array</title>
+    <link rel="stylesheet" href="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/style.css">
+    <script src="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/main.js"></script>
+
+</head>
+
+<body>
+    <script>
+        console.log('MDN:', 'https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array')
+
+        // --- Mutator (修改器) methods - splice
+
+        var months = ['Jan', 'Feb', 'October', 'April', 'June']
+        // --- array.splice(start[, deleteCount[, item1[, item2[, ...]]]])
+        console.log(months.splice(2, 1, 'March'))
+        console.log(months)
+        console.log(months.splice(2))
+        console.log(months)
+        console.log('\n\n')
+    </script>
+    <script>
+        // --- Accessor (访问) methods - concat / includes / 
+        // --- indexOf / lastIndexOf / slice / toString
+
+        var alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+        // --- old_array.concat(value1[, value2[, ...[, valueN]]])
+        console.log(alpha.concat([1, 2, 3]))
+        console.log('\n')
+
+        // --- arr.includes(searchElement[, fromIndex])
+        console.log(alpha.includes('b'))
+        console.log(alpha.includes('b', 2))
+        console.log('\n')
+
+
+        // --- arr.indexOf(searchElement[, fromIndex])
+        console.log(alpha.indexOf('e'))
+        console.log(alpha.indexOf('e', 6))
+        // --- arr.lastIndexOf(searchElement, fromIndex)
+        console.log(alpha.lastIndexOf('e'))
+        console.log(alpha.lastIndexOf('e', 6))
+        console.log('\n')
+
+        // --- arr.slice([begin[, end]])
+        console.log(alpha.slice(1))
+        console.log(alpha.slice(1, 2))
+        console.log(alpha.slice(-1, -4))
+        console.log(alpha.slice(-4, -1))
+
+        console.log(alpha.toString())
+        // --- arr.toLocaleString([locales[, options]]);
+        console.log('\n\n')
+    </script>
+    <script>
+        // --- Iteration methods
+
+        // --- a.entries()
+        var iterator1 = ['a', 'b', 'c'].entries();
+        console.log(iterator1.next());
+        console.log(iterator1.next());
+        console.log('\n')
+
+        // --- arr.every(callback[, thisArg])
+        // --- callback - currentValue, index, array
+        console.log([12, 4, 52, 13, 78].every(val => val < 50))
+        console.log([12, 4, 52, 13, 78].every(val => typeof val === 'number'))
+        console.log('\n')
+
+        // --- arr.filter(callback[, thisArg])
+        // --- callback - currentValue, index, array
+        console.log([12, 4, 52, 13, 78].filter(val => val < 50))
+        console.log('\n')
+
+        // --- arr.find(callback[, thisArg])
+        // --- callback - currentValue, index, array
+        console.log([12, 4, 52, 13, 78].find(val => val > 50))
+        console.log([12, 4, 52, 13, 78].find(val => {
+            // --- 寻找质数
+            var start = 2;
+            while (start <= Math.sqrt(val)) {
+                if (val % start++ < 1) {
+                    return false;
+                }
+            }
+            return val > 1;
+        }))
+        console.log('\n')
+
+        // --- arr.findIndex(callback[, thisArg])
+        // --- callback - currentValue, index, array
+        console.log([12, 4, 52, 13, 78].findIndex(val => {
+            var start = 2;
+            while (start <= Math.sqrt(val)) {
+                if (val % start++ < 1) {
+                    return false;
+                }
+            }
+            return val > 1;
+        }))
+        console.log('\n');
+
+        // arr.forEach(callback[, thisArg]);
+        // --- callback - currentValue, index, array
+        // --- 中括号前要有分号
+        [12, 4, 52].forEach((val, index) => {
+            console.log(val, index)
+        })
+        console.log('\n');
+
+        // ---- arr.keys()
+        var iterator = [12, 4, 52].keys()
+        console.log(iterator)
+        console.log(iterator.next())
+        console.log(iterator.next())
+        console.log(iterator.next())
+        console.log(iterator.next())
+        console.log('\n');
+
+        // arr.map(callback[, thisArg]);
+        // --- callback - currentValue, index, array
+        console.log([12, 4, 52, 13, 78].map(val => val * 2))
+        console.log(Array.prototype.map.call('Hello World!', x => x.charCodeAt(0)))
+        console.log(['1', '2', '3'].map(parseInt))
+        console.log('\n');
+
+        // arr.reduce(callback[, initialValue])
+        // --- callback - accumulator, currentValue, index, array
+        // --- accumulator - 累加器累加回调的返回值; 它是上一次调用回调时返回的累积值，或initialValue
+        // --- initialValue - 用作第一个调用 `callback` 的第一个参数的值
+        console.log([0, 1, 2, 3, 4].reduce((acc, cur) => {
+            console.log(acc, cur)
+            return acc + cur
+        }), '------------')
+        console.log([0, 1, 2, 3, 4].reduce((acc, cur) => {
+            console.log(acc, cur)
+            return acc + cur
+        }, 1024), '------------');
+        console.log(['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'].reduce((acc, cur) => {
+            console.log(acc, cur)
+            if (cur in acc) {
+                acc[cur]++;
+            } else {
+                acc[cur] = 1;
+            }
+            return acc;
+        }, {}), '------------')
+        console.log([{ son: [1, 2, 5, 6] }, { son: [5, 2, 7, 1] }, { son: [9, 8, 2, 6] }].reduce((acc, cur) => {
+            return [...acc, ...cur.son]
+        }, []), '------------')
+        console.log('\n');
+
+        // --- arr.reduceRight(callback[, initialValue])
+    </script>
+</body>
+
+</html>
