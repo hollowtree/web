@@ -7,7 +7,12 @@ gulp.task('serve', () => {
     browserSync({
         server: {
             baseDir: 'JavaScript'
-        }
+        },
+        // port: 443,
+        // https: {
+        //     key: "localhost.key",
+        //     cert: "localhost.cert"
+        // }
     });
     gulp.watch(['**/*'], { cwd: 'JavaScript' }, reload);
 });

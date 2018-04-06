@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>arrayBuffer</title>
+    <link rel="stylesheet" href="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/style.css">
+    <script src="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/main.js"></script>
+
+</head>
+
+<body>
+    <script>
+        var helloWorld = { data: 'Hello World!' }
+        var blob = new Blob([JSON.stringify(helloWorld)], { type: 'text/html' })
+        console.log(blob)
+
+        var url = URL.createObjectURL(blob)
+        console.log(url)
+        var link = document.createElement('a')
+        var textNode = document.createTextNode('generate json file')
+        link.appendChild(textNode)
+        link.setAttribute('href', url)
+        link.setAttribute('download', 'helloWorld')
+        document.querySelector('body').appendChild(link)
+
+
+        var reader = new FileReader()
+        reader.addEventListener('loadend', function () {
+            console.log(this)
+        })
+        reader.readAsArrayBuffer(blob)
+
+    </script>
+</body>
+
+</html>
