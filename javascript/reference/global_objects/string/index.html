@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>let</title>
+    <link rel="stylesheet" href="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/style.css">
+    <script src="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/main.js"></script>
+
+</head>
+
+<body>
+    <script>
+        // --- methods
+        console.log(String.fromCharCode(65, 66, 67))
+        console.log(String.fromCharCode(9807))
+        console.log(String.fromCodePoint(9807))
+        console.log(String.fromCharCode(0x2F804))
+        console.log(String.fromCodePoint(0x2F804))
+
+
+        var stringFromCharCode = String.fromCharCode;
+        var floor = Math.floor;
+        var temp = function (_) {
+            var MAX_SIZE = 0x4000;
+            var codeUnits = [];
+            var highSurrogate;
+            var lowSurrogate;
+            var index = -1;
+            var length = arguments.length;
+            if (!length) {
+                return "";
+            }
+            var result = "";
+            while (++index < length) {
+                var codePoint = Number(arguments[index]);
+                console.log('\n\n')
+                console.log(codePoint)
+                if (codePoint <= 0xFFFF) { // BMP code point
+                    codeUnits.push(codePoint);
+                } else { // Astral code point; split in surrogate halves
+                    // https://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
+                    codePoint -= 0x10000;
+                    highSurrogate = (codePoint >> 10) + 0xD800;
+                    lowSurrogate = (codePoint % 0x400) + 0xDC00;
+                    codeUnits.push(highSurrogate, lowSurrogate);
+                }
+                console.log(codeUnits)
+
+                if (index + 1 == length || codeUnits.length > MAX_SIZE) {
+                    result += stringFromCharCode.apply(null, codeUnits);
+                    codeUnits.length = 0;
+                }
+            }
+            console.log(result)
+            return result;
+        };
+        temp(0x2F804)
+        console.log(String.fromCharCode.apply(null, [55422, 56324]))
+        console.log('\n\n')
+
+
+        // --- instances
+        console.log('cat'.charAt(0))
+        console.log('cat'.charCodeAt(0))
+        console.log('♏'.charCodeAt(0))
+        console.log('♏'.codePointAt(0))
+
+        console.log('Ａ'.normalize('NFKD'))
+        console.log('\n')
+
+        // --- str.substr(start[, length])
+        console.log('qwertyuio'.substr(-5, 2))
+
+        // --- str.substring(indexStart[, indexEnd])
+        console.log('qwertyuio'.substring(5, 7))
+        console.log('qwertyuio'.substring(7, 5))
+
+        // --- str.slice(beginIndex[, endIndex])
+        console.log('qwertyuio'.slice(5, 7))
+        console.log('qwertyuio'.slice(2, -1))
+
+
+
+    </script>
+</body>
+
+</html>
