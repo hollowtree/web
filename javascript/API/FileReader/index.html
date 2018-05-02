@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>let</title>
+    <link rel="stylesheet" href="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/style.css">
+    <script src="//cdn.rawgit.com/hollowtree/effb4d9fe3e14729b678101a7a25c7f6/raw/fc73ef0d751ae91362bed4da9d1bd3093d311909/main.js"></script>
+
+</head>
+
+<body>
+    <input type='file' accept='text/plain' id="ipt">
+    <script>
+        document.querySelector('#ipt').addEventListener('change', function (e) {
+            var input = e.target;
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                console.log(e, e.target.result)
+            };
+            reader.readAsText(input.files[0]);
+        })
+    </script>
+</body>
+
+</html>
