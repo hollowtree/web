@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HTML DOM events</title>
+    <link rel="stylesheet" href="https://hollowtree.github.io/tools/web.css">
+    <script src="https://hollowtree.github.io/tools/web.js"></script>
+    <style>
+        .demo-box>div {
+            width: 150px;
+            height: 100px;
+            background: #ddeedd;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-box">
+        <div class="contextmenu-box">contextmenu</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Target: Document
+            console.log('DOMContentLoaded: DOM fully loaded and parsed')
+        })
+
+        window.addEventListener('hashchange', function (e) {
+            // --- Target objects: Window
+            console.log('hashchange: ', e)
+        })
+
+        let flag = 'record_' + Math.floor(Math.random() * 10000)
+        localStorage.setItem(flag, 'test')
+        window.addEventListener("beforeunload", function () {
+            localStorage.removeItem(flag)
+        });
+
+        document.querySelector('.contextmenu-box').addEventListener('contextmenu', function (e) {
+            e.preventDefault()
+            console.log('contextmenu: ', e)
+        })
+    </script>
+</body>
+
+</html>

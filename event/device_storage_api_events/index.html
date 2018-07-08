@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Device Storage API events (change)</title>
+    <link rel="stylesheet" href="https://hollowtree.github.io/tools/web.css">
+    <script src="https://hollowtree.github.io/tools/web.js"></script>
+</head>
+
+<body>
+    <!-- When the element is activated (by clicking or using the keyboard) for <input type="radio"> and <input type="checkbox">; -->
+    <!-- When the user commits the change explicitly (e.g. by selecting a value from a <select>'s dropdown with a mouse click, by selecting a date from a date picker for <input type="date">, by selecting a file in the file picker for <input type="file">, etc.); -->
+    <!-- When the element loses focus after its value was changed, but not commited (e.g. after editing the value of <textarea> or <input type="text">). -->
+    <input type="text">
+    <script>
+        document.querySelector('input').addEventListener('change', function (e) {
+            console.log(e)
+            e.target.value = (e.target.value).replace(/\<\>/, '')
+        })
+    </script>
+</body>
+
+
+</html>

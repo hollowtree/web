@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DOM events</title>
+    <link rel="stylesheet" href="https://hollowtree.github.io/tools/web.css">
+    <script src="https://hollowtree.github.io/tools/web.js"></script>
+    <style>
+        .demo-box {
+            display: flex;
+        }
+
+        .demo-box>div {
+            width: 150px;
+            height: 100px;
+            background: #ddeedd;
+            color: #666;
+            margin: 3px;
+            font-weight: bolder
+        }
+
+        .scroll-box {
+            overflow: auto;
+        }
+
+        .scroll-box>div {
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text">
+    <div class="demo-box">
+        <div class="keydown-box" tabindex="2">keydown</div>
+        <div class="keypress-box" tabindex="3">keypress</div>
+        <div class="mouse-box">
+            <div>mouse</div>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+        </div>
+        <div class="scroll-box">
+            <div>scroll</div>
+        </div>
+        <div class="wheel-box">wheel</div>
+    </div>
+    <script>
+        document.querySelector('input').addEventListener('compositionstart', function (e) {
+            console.log('compositionstart', e)
+        })
+        document.querySelector('input').addEventListener('compositionupdate', function (e) {
+            console.log('compositionend', e)
+        })
+        document.querySelector('input').addEventListener('compositionend', function (e) {
+            console.log('compositionend', e)
+        })
+
+        document.querySelector('.keydown-box').addEventListener('keydown', function (e) {
+            // --- 任何键都触发
+            console.log('keydown: ', e)
+        })
+        document.querySelector('.keypress-box').addEventListener('keypress', function (e) {
+            // --- 有效字符触发
+            console.log('keypress: ', e)
+        })
+
+        let mouseEl = document.querySelector('.mouse-box')
+        mouseEl.addEventListener('mousedown', function (e) {
+            console.log('mousedown: ', e)
+        })
+        mouseEl.addEventListener('mouseup', function (e) {
+            console.log('mouseup: ', e)
+        })
+        mouseEl.addEventListener('mousemove', function (e) {
+            // console.log('mousemove: ', e)
+        })
+
+        mouseEl.addEventListener('mouseenter', function (e) {
+            console.log('%cmouseenter: ', 'color:red', e)
+        })
+        mouseEl.addEventListener('mouseleave', function (e) {
+            console.log('%cmouseleave: ', 'color:green', e)
+        })
+        mouseEl.addEventListener('mouseout', function (e) {
+            e.target.style.color = 'blue'
+            setTimeout(() => {
+                e.target.style.color = ''
+            }, 500);
+            console.log('%cmouseout: ', 'color:blue', e)
+        })
+        mouseEl.addEventListener('mouseover', function (e) {
+            e.target.style.background = 'orange'
+            setTimeout(() => {
+                e.target.style.background = ''
+            }, 500);
+            console.log('%cmouseover: ', 'color:orange', e)
+        })
+
+        document.querySelector('.scroll-box').addEventListener('scroll', function (e) {
+            console.log('scroll: ', e)
+        })
+        document.querySelector('.scroll-box').addEventListener('wheel', function (e) {
+            console.log('wheel: ', e)
+        })
+
+        document.querySelector('.wheel-box').addEventListener('scroll', function (e) {
+            console.log('scroll: ', e)
+        })
+        document.querySelector('.wheel-box').addEventListener('wheel', function (e) {
+            console.log('wheel: ', e)
+        })
+
+    </script>
+</body>
+
+</html>
