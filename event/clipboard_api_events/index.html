@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>clipboard api events</title>
+    <link rel="stylesheet" href="https://hollowtree.github.io/tools/web.css">
+    <script src="https://hollowtree.github.io/tools/web.js"></script>
+    <style>
+        .demo-box {
+            width: 800px
+        }
+
+        textarea {
+            width: 800px;
+            box-sizing: border-box;
+        }
+
+        .paste-box {
+            height: 200px;
+            border: 1px dashed #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo-box">
+        <textarea rows="10" contenteditable="false">Hello World!</textarea>
+        <div class="paste-box"></div>
+    </div>
+    <script>
+        document.body.addEventListener('copy', e => {
+            let paste = (e.clipboardData || window.clipboardData).getData('text')
+            console.log(e, paste)
+
+            //   e.clipboardData.setData('text/plain', 'Hello, world!');
+            //   e.clipboardData.setData('text/html', '<b>Hello, world!</b>');
+
+        })
+        document.body.addEventListener('cut', e => {
+            // --- chrome 58 才支持
+            let paste = (e.clipboardData || window.clipboardData).getData('text')
+            console.log(e, paste)
+        })
+        document.querySelector('.paste-box').addEventListener('paste', e => {
+            e.preventDefault()
+            e.stopPropagation()
+            let clip = (e.clipboardData || window.clipboardData)
+            let paste = clip.getData('text')
+            console.log(e, paste)
+
+            if (clip.files && clip.files[0] && clip.files[0].size) {
+                var fr = new FileReader()
+                fr.addEventListener('loadend', function () {
+                    console.log(this, e)
+                    let imgEl = document.createElement('img')
+                    imgEl.setAttribute('src', this.result)
+                    document.querySelector('.paste-box').appendChild(imgEl)
+                })
+                fr.readAsDataURL(clip.files[0])
+                return
+            }
+
+            // e.target.textContent = paste
+            const selection = window.getSelection();
+            if (!selection.rangeCount) return false;
+            console.log(selection.getRangeAt(0))
+            selection.getRangeAt(0).insertNode(document.createTextNode(paste));
+        })
+    </script>
+</body>
+
+</html>

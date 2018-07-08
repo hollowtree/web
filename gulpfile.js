@@ -5,16 +5,14 @@ let reload = browserSync.reload;
 
 gulp.task('serve', () => {
     browserSync({
-        server: {
-            baseDir: 'JavaScript'
-        },
+        server: true,
         // port: 443,
         // https: {
         //     key: "localhost.key",
         //     cert: "localhost.cert"
         // }
     });
-    gulp.watch(['**/*'], { cwd: 'JavaScript' }, reload);
+    gulp.watch(['**/*'], { cwd: './' }, reload);
 });
 
 gulp.task('default', [
