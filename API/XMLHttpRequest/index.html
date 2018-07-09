@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>XMLHttpRequest</title>
+    <link rel="stylesheet" href="https://hollowtree.github.io/tools/web.css">
+    <script src="https://hollowtree.github.io/tools/web.js"></script>
+</head>
+
+<body>
+    <button class="x-www-form-urlencoded">x-www-form-urlencoded</button>
+    <button class="FormData">FormData</button>
+    <script>
+        // --- readyState 
+        // ---    0 UNSEND               xhr client has been created. open() not called yet.
+        // ---    1 OPENED               open() has been called
+        // ---    2 HEADERS_RECEIVED     send() has been called, response headers and status are available.
+        // ---    3 LOADING              downloading
+        // ---    4 DONE                 The operation is complate
+        var xhr = new XMLHttpRequest()
+        xhr.addEventListener('loadstart', function (e) {
+            console.log('loadstart: ', xhr.readyState, xhr.status, e)
+        })
+        xhr.addEventListener('progress', function (e) {
+            console.log('progress: ', xhr.readyState, xhr.status, e)
+        })
+        xhr.addEventListener('abort', function (e) {
+            console.log('abort: ', xhr.readyState, xhr.status, e)
+        })
+        xhr.addEventListener('error', function (e) {
+            console.log('error: ', xhr.readyState, xhr.status, e)
+        })
+        xhr.addEventListener('load', function (e) {
+            console.log('load: ', xhr.readyState, xhr.status, e)
+        })
+        xhr.addEventListener('timeout', function (e) {
+            console.log('timeout: ', xhr.readyState, xhr.status, e)
+        })
+        xhr.addEventListener('loadend', function (e) {
+            console.log('loadend: ', xhr.readyState, xhr.status, e)
+        })
+        xhr.addEventListener('readystatechange', function (e) {
+            console.log('readystatechange: ', xhr.readyState, xhr.status, e)
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log('JSON data:', JSON.parse(xhr.responseText), xhr)
+            }
+        })
+        xhr.open('GET', './data.json')
+        xhr.timeout = 10000
+        xhr.send()
+    </script>
+
+    <script>
+        // --- application/x-www-form-urlencoded
+        document.querySelector('.x-www-form-urlencoded').addEventListener('click', function () {
+            var data = {
+                name: 'teemo',
+                age: 12
+            }
+            var xhr = new XMLHttpRequest()
+            var urlEncodedDataArr = []
+            var urlEncodedData = ''
+
+            for (key in data) {
+                urlEncodedDataArr.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+            }
+            urlEncodedData = urlEncodedDataArr.join('&').replace(/%20/g, '+')
+            xhr.open('POST', '/test')
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            xhr.send(urlEncodedData)
+        })
+    </script>
+    <script>
+        // --- multipart/form-data
+        document.querySelector('.FormData').addEventListener('click', function () {
+            var data = {
+                name: 'teemo',
+                age: 12
+            }
+            var xhr = new XMLHttpRequest()
+            var fd = new FormData()
+            fd.append('name', 'teemo')
+            fd.append('age', 12)
+            xhr.open('POST', '/test')
+            xhr.send(fd)
+        })
+    </script>
+</body>
+
+</html>
