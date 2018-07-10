@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>let</title>
+    <link rel="stylesheet" href="//hollowtree.github.io/tools/web.css">
+    <script src="//hollowtree.github.io/tools/web.js"></script>
+
+</head>
+
+<body>
+    <button>BTN</button>
+    <script>
+        let el = document.querySelector('button')
+        el.addEventListener('cat', function (e) {
+            console.log(e, this)
+        })
+        let event = new CustomEvent('cat', {
+            detail: {
+                color: 'green'
+            }
+        })
+        el.dispatchEvent(event)
+    </script>
+</body>
+
+</html>
