@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>observer</title>
+</head>
+
+<body>
+    <script>
+        var pubsub = {}
+        !(function (q) {
+            var topics = {},
+                subUid = -1
+
+            q.publish = function (topic, args) {
+                if (!topics[topic]) {
+                    return false
+                }
+                var subscribers = topics[topic],
+                    len = subscribers ? subscribers.length : 0
+                while (len--) {
+                    subscribers[len].func(topic, args)
+                }
+                return
+            }
+            q.subscribe = function (topic, func) {
+                if (!topics[topic]) {
+                    topics[topic] = []
+                }
+                var token = (++subUid).toString()
+                topics[topic].push({
+                    token: token,
+                    func: func
+                })
+                console.log('subscribe: ',topics)
+                return token
+            }
+            q.unsubscribe = function (token) {
+                for (var m in topics) {
+                    if (topics[m]) {
+                        for (var i = 0, j = topics[m].length; i < j; i++) {
+                            if (topics[m][i].token == token) {
+                                topics[m].splice(i, 1)
+                                return token
+                            }
+                        }
+                    }
+                }
+                return this
+            }
+        })(pubsub)
+    </script>
+    <script>
+        var msgLogger = function (topics, data) {
+            console.log('%cLogging: ', 'color:cadetblue;border: 1px solid cadetblue;padding-left:2px;border-radius:3px;', topics + ': ', data)
+        }
+        var msgLogger2 = function (topics, data) {
+            console.log('%cLogging: ', 'background:red;color:white;border: 1px solid red;padding-left:2px;border-radius:3px;', topics + ': ', data)
+        }
+        var subscription = pubsub.subscribe('inbox/newMsg', msgLogger)
+        var subscription2 = pubsub.subscribe('inbox/newMsg', msgLogger2)
+        var subscription3 = pubsub.subscribe('inbox/newMessage', msgLogger)
+
+        console.log('\n--- publish 1 start ---')
+        pubsub.publish('inbox/newMsg', 'Hello world!')
+        console.log('--- publish 1 end ---\n\n')
+
+        // pubsub.unsubscribe(subscription)
+
+        console.log('\n--- publish 2 start ---')
+        pubsub.publish('inbox/newMsg', {
+            name: 'Teemo',
+            age: 17
+        })
+        console.log('--- publish 2 end ---\n\n')
+
+        console.log('\n--- publish 3 start ---')
+        pubsub.publish('inbox/newMessage', {
+            name: 'Annie',
+            age: 16
+        })
+        console.log('--- publish 3 end ---\n\n')
+    </script>
+</body>
+
+</html>
