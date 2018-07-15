@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>let</title>
+    <link rel="stylesheet" href="https://hollowtree.github.io/tools/web.css">
+    <script src="https://hollowtree.github.io/tools/web.js"></script>
+
+</head>
+
+<body>
+    <script>
+        // -- sleep
+        const sleep = function (t) {
+            return new Promise(res => setTimeout(res, t))
+        }
+        !(async function () {
+            console.time('sleep')
+            await sleep(1000)
+            console.log('Hello World!')
+            console.timeEnd('sleep')
+        })()
+    </script>
+</body>
+
+</html>

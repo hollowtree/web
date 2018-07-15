@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <meta name="description" content="created by hollowtree">
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.js"></script> -->
+    <!-- <script src="./promise.js"></script> -->
+    <script>
+        // function sleep() {
+        //     return new Promise(function (res, rej) {
+        //         setTimeout(() => {
+        //             res()
+        //         }, 1000);
+        //     })
+        // }
+        // !(async function () {
+        //     console.time('promise')
+        //     await sleep()
+        //     console.timeEnd('promise')
+        // })()
+
+        console.log('script start')
+
+        setTimeout(() => {
+            console.log('setTimeout')
+        }, 0);
+
+
+        Promise.resolve().then(() => {
+            console.log('promise 1')
+        }).then(() => {
+            console.log('promise 2')
+        })
+
+        console.log('script end')
+
+    </script>
+</body>
+
+</html>
