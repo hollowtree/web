@@ -10,9 +10,8 @@
 </head>
 
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.js"></script> -->
-    <!-- <script src="./promise.js"></script> -->
+    <script src="./promise.js"></script>
+    <!-- <script src="./temp.js"></script> -->
     <script>
         // function sleep() {
         //     return new Promise(function (res, rej) {
@@ -31,8 +30,8 @@
 
         setTimeout(() => {
             console.log('setTimeout')
-        }, 0);
-
+        });
+        console.log(Promise)
 
         Promise.resolve().then(() => {
             console.log('promise 1')

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tasks & microtasks</title>
+    <link rel="stylesheet" href="https://hollowtree.github.io/tools/web.css">
+    <script src="https://hollowtree.github.io/tools/web.js"></script>
+</head>
+
+<body>
+    <button id="btn1">script 1</button>
+    <script>
+    // --- refs:
+    // --- https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
+    </script>
+    <script>
+        // --- script 1
+        function foo() {
+            console.log('script start')
+
+            setTimeout(() => {
+                console.log('setTimeout')
+            }, 0);
+
+            this.dataset.temp = Math.random()
+
+            Promise.resolve().then(() => {
+                console.log('promise 1')
+            }).then(() => {
+                console.log('promise 2')
+            })
+
+            console.log('script end')
+        }
+        let el = document.getElementById('btn1')
+        new MutationObserver(() => {
+            console.log('mutation')
+        }).observe(el, {
+            attributes: true
+        })
+        el.addEventListener('click', foo)
+
+    </script>
+</body>
+
+</html>
