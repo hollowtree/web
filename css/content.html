@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>content</title>
+    <meta name="description" content="created by hollowtree">
+    <style>
+        .box1:before,
+        .box2:before {
+            white-space: pre-wrap;
+        }
+
+        .box1:before {
+            content: 'Hello\A World';
+        }
+
+        .box2:before {
+            content: attr(data-title);
+        }
+    </style>
+</head>
+
+<body>
+    <span class="box1"></span>
+
+    <hr>
+
+    <span class="box2" data-title="Hello&#10;World"></span>
+</body>
+
+</html>
