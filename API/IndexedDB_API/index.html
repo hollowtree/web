@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IndexedDB</title>
+    <meta name="description" content="created by hollowtree">
+</head>
+
+<body>
+    <script>
+        let db
+        let isUpgradeneeded = false
+        const request = indexedDB.open('myDB')
+        const legendData = [
+            { groupId: '111000', data: { name: 'Teemo' } },
+            { groupId: '111222', data: { name: 'Annie' } }
+        ]
+        console.log('request: ', request)
+        console.log('request.readyState: ', request.readyState)
+
+        request.onblocked = function (e) {
+            console.log('blocked', e)
+        }
+        request.onerror = function (e) {
+            console.log('error；', e)
+        }
+        request.onsuccess = function (e) {
+            console.log('request.readyState: ', request.readyState)
+            console.log('success: ', e)
+            db = e.target.result
+            let transaction = db.transaction(['legend'], 'readwrite');
+            console.log('transaction: ', transaction)
+            let objStore = transaction.objectStore('legend')
+            console.log('objStore: ', objStore)
+
+        }
+        request.onupgradeneeded = function (e) {
+            // 创建数据库的时候会触发，并且会比 success 早触发
+            console.log('upgradeneeded: ', e)
+            isUpgradeneeded = true
+            db = e.target.result
+            let objStore = db.createObjectStore('legend', { keyPath: 'groupId' })
+            objStore.createIndex('groupId', 'groupId', { unique: true })
+
+            objStore.transaction.oncomplete = function (e) {
+                let legendObjStore = db.transaction('legend', "readwrite").objectStore('legend')
+                legendData.forEach(v => legendObjStore.add(v))
+            }
+        }
+
+    </script>
+</body>
+
+</html>
